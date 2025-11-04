@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+    background-color: #fff5f5;
+    border: 2px solid #518d8f;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+
+  .hero-text {
+    width: 40%;
+  }
+
+  .hero-text h1 {
+    color:#518d8f;
+    font-weight: 700;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    color: #333;
+  }
+
+  .hero-img {
+    width: 55%;
+  }
+
+  .hero-img img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+</style>
+
+<section class="hero container">
+  <div class="hero-text">
+    <h1>Our Mission & Vision</h1>
+    <p>
+      At <strong>Little Flower College</strong>, we aim to empower students with knowledge, creativity,
+      and the spirit of lifelong learning.  
+      Our mission is to build a community of learners who embrace innovation,
+      leadership, and service to society.
+    </p>
+    <p>
+      We envision a future where education transforms lives and creates opportunities
+      for a better tomorrow.
+    </p>
+  </div>
+
+  <div class="hero-img">
+    <img src="{{ url_for('static', filename='images/library.jpg') }}" alt="College Campus">
+  </div>
+</section>
+
+{% endblock %}

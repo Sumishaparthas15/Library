@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #fffaf7;
+  }
+
+  h2, h4, h5 {
+    color: #518d8f;
+    font-weight: 700;
+  }
+
+  .book-detail-container {
+    background-color: #fffdfc;
+    border: 2px solid #518d8f;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(179, 0, 0, 0.15);
+  }
+
+  .book-detail-container img {
+    border-radius: 10px;
+    border: 2px solid #518d8f;
+    box-shadow: 0 3px 8px rgba(179, 0, 0, 0.1);
+  }
+
+  .book-detail-container hr {
+    border-top: 2px solid #518d8f;
+    opacity: 0.3;
+  }
+
+  .form-control, .form-select {
+    border: 2px solid#518d8f;
+    border-radius: 8px;
+  }
+
+  .btn-primary {
+    background-color: #518d8f;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  .btn-primary:hover {
+    background-color: #518d8f;
+  }
+
+  .border {
+    border: 1.5px solid #518d8f !important;
+    background-color: #fffdfc;
+  }
+
+  .border strong {
+    color:#518d8f;
+  }
+
+  .text-muted {
+    color: #518d8f !important;
+  }
+</style>
+
+<div class="book-detail-container">
+  <div class="row">
+    <div class="col-md-4">
+      <!-- <img src="{{ book['image'] or url_for('static', filename='images/placeholder.svg') }}" class="img-fluid"> -->
+       {% if book['image'] %}
+  <img src="{{ url_for('static', filename=book['image'].replace('static/', '')) }}" class="img-fluid">
+{% else %}
+  <img src="{{ url_for('static', filename='images/placeholder.svg') }}" class="img-fluid">
+{% endif %}
+
+    </div>
+    <div class="col-md-8">
+      <h2>{{ book['title'] }}</h2>
+      <p class="mb-1"><strong>Author:</strong> {{ book['author'] }}</p>
+      <p class="mb-1"><strong>Year:</strong> {{ book['year'] }}</p>
+      <p class="mb-1"><strong>Department:</strong> {{ book['department'] }}</p>
+      <p class="mb-1"><strong>Type:</strong> {{ book['type'] }}</p>
+      <hr>
+      <p>{{ book['description'] }}</p>
+      <hr>
+      <h5>Write a Review</h5>
+      <form method="post" action="{{ url_for('submit_review') }}">
+        <input type="hidden" name="book_id" value="{{ book['id'] }}">
+        <div class="mb-2">
+          <input name="name" class="form-control" placeholder="Your name (optional)">
+        </div>
+        <div class="mb-2">
+          <select name="rating" class="form-select">
+            <option value="5">5 - Excellent</option>
+            <option value="4">4 - Very good</option>
+            <option value="3">3 - Good</option>
+            <option value="2">2 - Fair</option>
+            <option value="1">1 - Poor</option>
+          </select>
+        </div>
+        <div class="mb-2">
+          <textarea name="comment" class="form-control" rows="3" placeholder="Your feedback"></textarea>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <hr>
+  <h4>Reviews</h4>
+  <div>
+    {% for r in reviews %}
+      <div class="border rounded p-3 mb-2">
+        <div class="d-flex justify-content-between">
+          <strong>{{ r['name'] }}</strong>
+          <small class="text-muted">{{ r['created_at'] }}</small>
+        </div>
+        <div>Rating: {{ r['rating'] }}/5</div>
+        <div class="mt-2">{{ r['comment'] }}</div>
+      </div>
+    {% else %}
+      <p class="text-muted">No reviews yet.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

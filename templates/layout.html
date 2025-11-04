@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>College Library</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: #ffffff;
+      color: #222;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #518d8f; 
+      color: white;
+      padding: 0.8rem 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: white !important;
+      letter-spacing: 1px;
+    }
+    .navbar-nav .nav-link {
+      color: white !important;
+      font-weight: 500;
+      margin: 0 0.5rem;
+      transition: 0.3s;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #ffcccc !important;
+    }
+
+    /* Notification Bar */
+    .notification {
+      background: #518d8f;
+      color: white;
+      padding: 0.7rem;
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      animation: slideIn 1s ease;
+    }
+    @keyframes slideIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Footer */
+    footer {
+      background:#518d8f;
+      color: white;
+      padding: 2rem 0;
+    }
+    footer h5 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" href="{{ url_for('index') }}">📘 Little Flower College</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon text-white"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+   <ul class="navbar-nav mx-auto">
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Books</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('newlaunch_books')}}">New Launch Books</a></li>
+
+   {% if session.admin_logged_in %}
+    <li class="nav-item"><a class="nav-link text-danger" href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
+    <li class="nav-item"><a class="nav-link text-danger" href="{{ url_for('admin_logout') }}">Logout</a></li>
+  {% else %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_login') }}">Admin</a></li>
+  {% endif %}
+</ul>
+
+  </div>
+</nav>
+
+<!-- Notification -->
+<div class="notification">
+  🎓 Admissions Open for 2025 - Apply Now! | New Library Books Arrived 📚
+</div>
+
+<!-- Flash Messages -->
+<div class="container mt-4">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for cat, msg in messages %}
+        <div class="alert alert-{{ cat }}">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</div>
+
+<!-- Main Content -->
+<div class="container mt-4">
+  {% block content %}{% endblock %}
+  <br><br>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row text-center text-md-start">
+      <div class="col-md-4 mb-3">
+        <h5>About Us</h5>
+        <p>Little Flower College is dedicated to providing quality education and holistic development for every student.</p>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <h5>Contact</h5>
+        <p>📍 Thrissur, Kerala<br>📞 +91 98765 43210<br>✉️ info@littleflowercollege.edu</p>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <h5>Quick Links</h5>
+        <a href="">Library</a><br>
+        <a href="">Departments</a><br>
+        <a href="">Admin Login</a>
+      </div>
+    </div>
+    <hr style="border-color: rgba(255,255,255,0.3);">
+    <p class="text-center m-0">© 2025 Little Flower College Library. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #fff5f5;
+  }
+
+  .newlaunch-container {
+    padding: 3rem 2rem;
+    min-height: 80vh;
+  }
+
+  .section-header {
+    text-align: center;
+    color: #518d8f;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  .book-card {
+    background-color: #fffdfc;
+    border: 2px solid#518d8f;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(179, 0, 0, 0.15);
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .book-card img {
+    width: 120px;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid#518d8f;
+  }
+
+  .book-details h4 {
+    color:#518d8f;
+    margin-bottom: 0.5rem;
+  }
+
+  .book-details p {
+    margin: 0.2rem 0;
+    color: #333;
+  }
+</style>
+
+<section class="newlaunch-container container">
+  <h2 class="section-header">📚 New Launch Books</h2>
+
+  {% for book in books %}
+  <div class="book-card">
+    {% if book.image %}
+      <img src="{{ book.image }}" alt="{{ book.title }}">
+    {% else %}
+      <img src="{{ url_for('static', filename='images/default_book.png') }}" alt="No Image">
+    {% endif %}
+
+    <div class="book-details">
+      <h4>{{ book.title }}</h4>
+      <p><strong>Author:</strong> {{ book.author }}</p>
+      <p><strong>Year:</strong> {{ book.year }}</p>
+      <p><strong>Department:</strong> {{ book.department_name or 'N/A' }}</p>
+      <p><strong>Type:</strong> {{ book.type }}</p>
+      <p>{{ book.description[:150] }}{% if book.description|length > 150 %}...{% endif %}</p>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

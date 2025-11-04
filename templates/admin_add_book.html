@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #fffaf7; /* soft cream background */
+  }
+
+  .addbook-container {
+    padding: 3rem 2rem;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .addbook-card {
+    background-color: #fffdfc;
+    border: 2px solid#518d8f;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(179, 0, 0, 0.15);
+    padding: 2.5rem 3rem;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .addbook-card h3 {
+    color:#518d8f;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .form-control {
+    border: 1.5px solid#518d8f;
+    border-radius: 8px;
+    padding: 0.7rem;
+  }
+
+  .form-control:focus {
+    box-shadow: 0 0 8px rgba(179, 0, 0, 0.3);
+    border-color:#518d8f;
+  }
+
+  label {
+    font-weight: 600;
+    color:#518d8f;
+    margin-bottom: 0.3rem;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  .btn-add {
+    background-color:#518d8f;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .btn-add:hover {
+    background-color: #073062;
+  }
+</style>
+
+<section class="addbook-container">
+  
+  <div class="addbook-card">
+    <h3>➕ Add New Book</h3>
+
+    <form method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label>Title</label>
+        <input class="form-control" name="title" placeholder="Book Title" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Author</label>
+        <input class="form-control" name="author" placeholder="Author Name" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Year</label>
+        <input class="form-control" name="year" placeholder="Published Year" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Department</label>
+        <select class="form-control" name="department_id" required>
+          <option value="" disabled selected>Select Department</option>
+          {% for dept in departments %}
+            <option value="{{ dept.id }}">{{ dept.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label>Type</label>
+        <input class="form-control" name="type" placeholder="e.g., Textbook, Reference" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Book Image</label>
+        <input class="form-control" type="file" name="image">
+      </div>
+
+      <div class="mb-3">
+        <label>Description</label>
+        <textarea class="form-control" name="description" rows="4" placeholder="Short description about the book"></textarea>
+      </div>
+
+      <button class="btn btn-add mt-3">Add Book</button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

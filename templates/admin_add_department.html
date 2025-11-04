@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #fff5f5;
+  }
+
+  .add-dept-container {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 2rem;
+    min-height: 80vh;
+  }
+
+  .add-dept-card {
+    background-color: #fffdfc;
+    border: 2px solid #518d8f;
+    border-radius: 12px;
+    padding: 2.5rem 3rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(179, 0, 0, 0.15);
+  }
+
+  .add-dept-card h2 {
+    color: #518d8f;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: #518d8f;
+  }
+
+  .form-control {
+    border: 1.5px solid #518d8f;
+    border-radius: 8px;
+    padding: 0.6rem;
+  }
+
+  .form-control:focus {
+    box-shadow: 0 0 8px rgba(179, 0, 0, 0.3);
+    border-color: #518d8f;
+  }
+
+  .btn-success {
+    background-color: #518d8f;
+    border-color: #518d8f;
+    color: #fff;
+    font-weight: 600;
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-success:hover {
+    background-color: #073062;
+  }
+
+  .btn-secondary {
+    width: 100%;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+  }
+</style>
+
+<section class="add-dept-container">
+  
+  <div class="add-dept-card">
+    <h2>➕ Add Department</h2>
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label">Department Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Enter Department Name" required>
+      </div>
+
+      <button type="submit" class="btn btn-success mt-2">Add Department</button>
+      <a href="{{ url_for('admin_departments') }}" class="btn btn-secondary mt-2">Cancel</a>
+    </form>
+  </div>
+</section>
+
+{% endblock %}
